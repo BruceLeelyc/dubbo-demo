@@ -1,0 +1,6 @@
+Application Version: ${clouder.version}
+Spring Boot Version: ${spring-boot.version}
+   ___   __ _____ ____ _____ _  __
+  / o.) / //_  _// __//_  _/| |/,'
+ / o \ / /  / / / _/   / /  | ,'
+/___,'/_/  /_/ /_/    /_/  /_/

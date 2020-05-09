@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.bitfty.mall.dao.BannerDao">
+
+    <resultMap id="resultMap" type="com.bitfty.mall.entity.Banner">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="banner_url" property="bannerUrl" jdbcType="VARCHAR"/>
+        <result column="banner_link" property="bannerLink" jdbcType="VARCHAR"/>
+        <result column="memo" property="memo" jdbcType="VARCHAR"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="start_date" property="startDate" jdbcType="TIMESTAMP"/>
+        <result column="end_date" property="endDate" jdbcType="TIMESTAMP"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="create_at" property="createAt" jdbcType="TIMESTAMP"/>
+        <result column="update_at" property="updateAt" jdbcType="TIMESTAMP"/>
+
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        id,title,type,banner_url,start_date,end_date,banner_link,memo,status,create_by,update_by,create_at,update_at
+    </sql>
+
+    <sql id="List_Column_List">
+        id,title,banner_url,banner_link
+    </sql>
+
+
+    <update id="update" parameterType="com.bitfty.mall.entity.Banner">
+        update tbl_banner
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="bannerUrl != null">
+                banner_url = #{bannerUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="bannerLink != null">
+                banner_link = #{bannerLink,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="startDate != null">
+                start_date = #{startDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endDate != null">
+                end_date = #{endDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="updateAt != null">
+                update_at = #{updateAt,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="delete">
+        delete from tbl_banner where id=#{id}
+    </delete>
+
+    <insert id="save" parameterType="com.bitfty.mall.entity.Banner" >
+        INSERT INTO tbl_banner
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="title != null">title,</if>
+            <if test="type != null">type,</if>
+            <if test="bannerUrl != null">banner_url,</if>
+            <if test="bannerLink != null">banner_link,</if>
+            <if test="memo != null">memo,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="startDate != null">start_date,</if>
+            <if test="endDate != null">end_date,</if>
+            <if test="status != null">status,</if>
+            <if test="createAt != null">create_at,</if>
+            <if test="updateAt != null">update_at,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=BIGINT},</if>
+            <if test="title != null">#{title,jdbcType=VARCHAR},</if>
+            <if test="type != null">#{type,jdbcType=VARCHAR},</if>
+            <if test="bannerUrl != null">#{bannerUrl,jdbcType=VARCHAR},</if>
+            <if test="bannerLink != null">#{bannerLink,jdbcType=VARCHAR},</if>
+            <if test="memo != null">#{memo,jdbcType=VARCHAR},</if>
+            <if test="createBy != null">#{createBy,jdbcType=VARCHAR},</if>
+            <if test="updateBy != null">#{updateBy,jdbcType=VARCHAR},</if>
+            <if test="startDate != null">#{startDate,jdbcType=VARCHAR},</if>
+            <if test="endDate != null">#{endDate,jdbcType=VARCHAR},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="createAt != null">#{createAt,jdbcType=TIMESTAMP},</if>
+            <if test="updateAt != null">#{updateAt,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+
+
+    <select id="getBannerList" resultMap="resultMap">
+        select <include refid="List_Column_List" />
+            from tbl_banner where
+            UNIX_TIMESTAMP(NOW())>= UNIX_TIMESTAMP(start_date ) and  UNIX_TIMESTAMP(end_date)>= UNIX_TIMESTAMP(NOW() )
+            and status = '1' and type = #{type}
+
+    </select>
+    <select id="findPageByParams" resultMap="resultMap">
+        select <include refid="Base_Column_List"/> from tbl_banner
+        <where>
+            <if test="type != null and type != ''">
+                and type =#{type}
+            </if>
+            <if test="startTimeBegin != null and startTimeBegin!='' ">
+                <![CDATA[  and start_date >= str_to_date(#{startTimeBegin},'%Y-%m-%d %T')  ]]>
+            </if>
+            <if test="startTimeEnd != null and startTimeEnd!=''">
+                <![CDATA[  and start_date <= str_to_date(#{startTimeEnd},'%Y-%m-%d %T')  ]]>
+            </if>
+            <if test="endTimeBegin != null and endTimeBegin!='' ">
+                <![CDATA[  and end_date <= str_to_date(#{endTimeBegin},'%Y-%m-%d %T')  ]]>
+            </if>
+            <if test="endTimeEnd != null and endTimeEnd!=''">
+                <![CDATA[  and end_date <= str_to_date(#{endTimeEnd},'%Y-%m-%d %T')  ]]>
+            </if>
+
+        </where>
+        <if test="orderBy != null and orderBy != ''">
+            order by ${orderBy} ${sortBy}
+        </if>
+        limit #{start},#{ends}
+    </select>
+    <select id="countByParams" resultType="java.lang.Integer">
+        select count(id) from tbl_banner
+        <where>
+            <if test="type != null and type != ''">
+                and type =#{type}
+            </if>
+            <if test="startTimeBegin != null and startTimeBegin!='' ">
+                <![CDATA[  and start_date >= str_to_date(#{startTimeBegin},'%Y-%m-%d %T')  ]]>
+            </if>
+            <if test="startTimeEnd != null and startTimeEnd!=''">
+                <![CDATA[  and start_date <= str_to_date(#{startTimeEnd},'%Y-%m-%d %T')  ]]>
+            </if>
+            <if test="endTimeBegin != null and endTimeBegin!='' ">
+                <![CDATA[  and end_date <= str_to_date(#{endTimeBegin},'%Y-%m-%d %T')  ]]>
+            </if>
+            <if test="endTimeEnd != null and endTimeEnd!=''">
+                <![CDATA[  and end_date <= str_to_date(#{endTimeEnd},'%Y-%m-%d %T')  ]]>
+            </if>
+        </where>
+    </select>
+
+    <select id="findById" resultMap="resultMap">
+        select <include refid="Base_Column_List"/> from tbl_banner where id=#{id}
+    </select>
+
+
+</mapper>

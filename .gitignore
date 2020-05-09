@@ -1,0 +1,15 @@
+/target/
+.settings
+.classpath
+.project
+src/main/resources/application-dev.properties
+src/main/resources/application-test.properties
+src/main/resources/application-online.properties
+.idea
+*.iml
+platform.properties
+platform.properties.lock
+logs
+*.factorypath
+src/main/resources/rebel.xml
+src/main/resources/rocketmq.properties

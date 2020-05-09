@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.bitfty.mall.dao.BuySnapshotDao">
+    <resultMap id="resultMap" type="com.bitfty.mall.entity.BuySnapshot">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+        <result column="user_id" property="userId" jdbcType="VARCHAR" />
+        <result column="prod_id" property="prodId" jdbcType="VARCHAR" />
+        <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="amount" property="amount" jdbcType="DECIMAL" />
+        <result column="sold_amount" property="soldAmount" jdbcType="DECIMAL" />
+        <result column="electric_fee" property="electricFee" jdbcType="DECIMAL" />
+        <result column="sold_electric_fee" property="soldElectricFee" jdbcType="DECIMAL" />
+        <result column="service_fee" property="serviceFee" jdbcType="DECIMAL" />
+        <result column="power_size" property="powerSize" jdbcType="DECIMAL" />
+        <result column="account_balance" property="accountBalance" jdbcType="DECIMAL" />
+        <result column="currency_type" property="currencyType" jdbcType="VARCHAR" />
+        <result column="prod_type" property="prodType" jdbcType="VARCHAR" />
+        <result column="gain_date" property="gainDate" jdbcType="TIMESTAMP" />
+        <result column="real_gain_date" property="realGainDate" jdbcType="TIMESTAMP" />
+        <result column="valid_day" property="validDay" jdbcType="INTEGER" />
+        <result column="buy_count" property="buyCount" jdbcType="INTEGER" />
+        <result column="expire_date" property="expireDate" jdbcType="TIMESTAMP" />
+        <result column="real_expire_date" property="realExpireDate" jdbcType="TIMESTAMP" />
+        <result column="days" property="days" jdbcType="INTEGER" />
+        <result column="btc_amount" property="btcAmount" jdbcType="DECIMAL" />
+        <result column="btc_exchange_rate" property="btcExchangeRate" jdbcType="DECIMAL" />
+        <result column="memo" property="memo" jdbcType="VARCHAR" />
+        <result column="create_at" property="createAt" jdbcType="TIMESTAMP" />
+        <result column="update_at" property="updateAt" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, order_id, prod_id, picture_url, name, amount, sold_amount, electric_fee, sold_electric_fee, service_fee, power_size, currency_type, prod_type, gain_date,real_gain_date,real_expire_date ,valid_day, buy_count, expire_date, days, btc_amount,btc_exchange_rate ,memo, create_at, update_at,user_id
+    </sql>
+
+    <insert id="insert" parameterType="com.bitfty.mall.entity.BuySnapshot">
+        INSERT INTO tbl_buy_snapshot
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null " >id,</if>
+            <if test="orderId != null " >order_id,</if>
+            <if test="prodId != null " >prod_id,</if>
+            <if test="pictureUrl != null " >picture_url,</if>
+            <if test="name != null " >name,</if>
+            <if test="amount != null " >amount,</if>
+            <if test="soldAmount != null " >sold_amount,</if>
+            <if test="electricFee != null " >electric_fee,</if>
+            <if test="soldElectricFee != null " >sold_electric_fee,</if>
+            <if test="serviceFee != null " >service_fee,</if>
+            <if test="powerSize != null " >power_size,</if>
+            <if test="currencyType != null " >currency_type,</if>
+            <if test="prodType != null " >prod_type,</if>
+            <if test="gainDate != null " >gain_date,</if>
+            <if test="realGainDate != null " >real_gain_date,</if>
+            <if test="validDay != null " >valid_day,</if>
+            <if test="buyCount != null " >buy_count,</if>
+            <if test="expireDate != null " >expire_date,</if>
+            <if test="realExpireDate != null " >real_expire_date,</if>
+            <if test="days != null">days,</if>
+            <if test="btcAmount != null">btc_amount,</if>
+            <if test="btcExchangeRate != null">btc_exchange_rate,</if>
+            <if test="memo != null " >memo,</if>
+            <if test="createAt != null " >create_at,</if>
+            <if test="updateAt != null " >update_at,</if>
+            <if test="userId != null " >user_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null " >#{id,jdbcType=VARCHAR},</if>
+            <if test="orderId != null " >#{orderId,jdbcType=VARCHAR},</if>
+            <if test="prodId != null " >#{prodId,jdbcType=VARCHAR},</if>
+            <if test="pictureUrl != null " >#{pictureUrl,jdbcType=VARCHAR},</if>
+            <if test="name != null " >#{name,jdbcType=VARCHAR},</if>
+            <if test="amount != null " >#{amount,jdbcType=DECIMAL},</if>
+            <if test="soldAmount != null " >#{soldAmount,jdbcType=DECIMAL},</if>
+            <if test="electricFee != null " >#{electricFee,jdbcType=DECIMAL},</if>
+            <if test="soldElectricFee != null " >#{soldElectricFee,jdbcType=DECIMAL},</if>
+            <if test="serviceFee != null " >#{serviceFee,jdbcType=DECIMAL},</if>
+            <if test="powerSize != null " >#{powerSize,jdbcType=DECIMAL},</if>
+            <if test="currencyType != null " >#{currencyType,jdbcType=VARCHAR},</if>
+            <if test="prodType != null " >#{prodType,jdbcType=VARCHAR},</if>
+            <if test="gainDate != null " >#{gainDate,jdbcType=TIMESTAMP},</if>
+            <if test="realGainDate != null " >#{realGainDate,jdbcType=TIMESTAMP},</if>
+            <if test="validDay != null " >#{validDay,jdbcType=INTEGER},</if>
+            <if test="buyCount != null " >#{buyCount,jdbcType=INTEGER},</if>
+            <if test="expireDate != null " >#{expireDate,jdbcType=TIMESTAMP},</if>
+            <if test="realExpireDate != null " >#{realExpireDate,jdbcType=TIMESTAMP},</if>
+            <if test="days != null">#{days,jdbcType=INTEGER},</if>
+            <if test="btcAmount != null">#{btcAmount,jdbcType=DECIMAL},</if>
+            <if test="btcExchangeRate != null">#{btcExchangeRate,jdbcType=DECIMAL},</if>
+            <if test="memo != null " >#{memo,jdbcType=VARCHAR},</if>
+            <if test="createAt != null " >#{createAt,jdbcType=TIMESTAMP},</if>
+            <if test="updateAt != null " >#{updateAt,jdbcType=TIMESTAMP},</if>
+            <if test="userId != null " >#{userId},</if>
+        </trim>
+    </insert>
+
+    <select id="queryBuySnapshotByOrderId" parameterType="string" resultMap="resultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_buy_snapshot where order_id = #{orderId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findSnapshotByProdIds" parameterType="list" resultMap="resultMap">
+        select order_id, prod_id
+        from tbl_buy_snapshot
+        where prod_id in
+        <foreach collection="list" open="(" separator="," close=")" item="pid">
+            #{pid}
+        </foreach>
+    </select>
+
+    <update id="updateCurrencyTypeAmount">
+        update tbl_buy_snapshot
+        set btc_amount = #{currencyTypeAmount,jdbcType=DECIMAL}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateCurrencyTypeAmountTime">
+        update tbl_buy_snapshot
+        set currency_type = #{currencyType},real_gain_date=#{realGainDate},real_expire_date=#{realExpireDate}
+        where order_id = #{orderId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="queryBuySnapshotByOrderIds" parameterType="list" resultMap="resultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_buy_snapshot
+        where order_id in
+        <foreach collection="list" open="(" separator="," close=")" item="oid">
+            #{oid}
+        </foreach>
+    </select>
+
+    <select id="findSnapshotByIds" parameterType="list" resultMap="resultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_buy_snapshot
+        where id in
+        <foreach collection="list" open="(" separator="," close=")" item="ids">
+            #{ids}
+        </foreach>
+    </select>
+
+    <select id="getCountByProductTypeAndLurce" resultType="java.lang.Integer">
+        select
+        count(1)
+        from tbl_buy_snapshot r left join tbl_order s on s.id = r.order_id
+        where r.user_id = #{uid}
+        and r.prod_type = #{productType}
+        and s.status = 3
+        <if test="type == 1">
+            and r.real_gain_date > #{time}
+        </if>
+        <if test="type == 2">
+            and r.real_gain_date &lt;= #{time} and r.real_expire_date >= #{time}
+        </if>
+        <if test="type == 3">
+            and r.real_expire_date &lt; #{time}
+        </if>
+    </select>
+
+    <select id="findbyOrderId" resultMap="resultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_buy_snapshot
+        where order_id = #{orderId} limit 1
+    </select>
+
+    <select id="findByProductTypeAndLurce" resultMap="resultMap">
+        select
+        r.id, r.order_id, r.prod_id, r.picture_url, r.name, r.amount, r.sold_amount, r.electric_fee, r.sold_electric_fee,
+        r.service_fee, r.power_size, r.currency_type, r.prod_type, r.gain_date, r.valid_day, r.buy_count, r.expire_date,
+        r.days, r.btc_amount,r.btc_exchange_rate ,r.memo, r.create_at, r.update_at,r.user_id,r.real_gain_date, r.real_expire_date
+        from tbl_buy_snapshot r left join tbl_order s on s.id = r.order_id
+        where r.user_id = #{uid}
+        and r.prod_type = #{productType}
+        and s.status = 3
+        <if test="type == 1">
+            and r.real_gain_date > #{time}
+        </if>
+        <if test="type == 2">
+            and r.real_gain_date &lt;= #{time} and r.real_expire_date >= #{time}
+        </if>
+        <if test="type == 3">
+            and r.real_expire_date &lt; #{time}
+        </if>
+        order by r.create_at DESC
+        limit #{start},#{end}
+    </select>
+</mapper>

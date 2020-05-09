@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- ${catalina.base} -->
+	<property name="LOG_HOME" value="./logs"/>
+	<property name="PROJECT_NAME" value="mall"/>
+	<property name="HISTORY" value="/opt/clouder/server"/>
+	<!-- console -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<withJansi>true</withJansi>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+			<pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%-5level] %logger{50} [%M:%L] %X{traceId} %X{NG_TRACE_ID} - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!-- logFile  -->
+	<appender name="logFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_HOME}/logFile.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${HISTORY}/history/%d{yyyyMM,aux}/${PROJECT_NAME}/logFile.log.%d{yyyyMMdd}</fileNamePattern>
+			<maxHistory>90</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{15} [%M:%L] %X{traceId} %X{NG_TRACE_ID} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- error -->
+	<appender name="errorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<File>${LOG_HOME}/error.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${HISTORY}/history/%d{yyyyMM,aux}/${PROJECT_NAME}/error.log.%d{yyyyMMdd}</FileNamePattern>
+			<maxHistory>90</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{15} [%M:%L] %X{traceId} %X{NG_TRACE_ID} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name ="allLogFile" class= "ch.qos.logback.classic.AsyncAppender">
+		<discardingThreshold >0</discardingThreshold>
+		<queueSize>2048</queueSize>
+		<IncludeCallerData>true</IncludeCallerData>
+		<appender-ref ref ="logFile"/>
+	</appender>
+
+	<appender name ="errorLogFile" class= "ch.qos.logback.classic.AsyncAppender">
+		<discardingThreshold >0</discardingThreshold>
+		<queueSize>1024</queueSize>
+		<IncludeCallerData>true</IncludeCallerData>
+		<appender-ref ref ="errorLog"/>
+	</appender>
+
+	<!-- 开发环境下的日志配置 -->
+	<springProfile name="dev">
+		<root level="INFO">
+			<appender-ref ref="allLogFile" />
+			<appender-ref ref="errorLogFile" />
+			<appender-ref ref="console" />
+		</root>
+	</springProfile>
+
+	<!-- 测试环境下的日志配置 -->
+	<springProfile name="test">
+		<root level="INFO">
+			<appender-ref ref="allLogFile" />
+			<appender-ref ref="errorLogFile" />
+		</root>
+	</springProfile>
+
+	<!-- 生产环境下的日志配置 -->
+	<springProfile name="prod">
+		<root level="INFO">
+			<appender-ref ref="allLogFile" />
+			<appender-ref ref="errorLogFile" />
+		</root>
+	</springProfile>
+
+
+	<!-- 生产环境下的日志配置 -->
+	<springProfile name="online">
+		<root level="INFO">
+			<appender-ref ref="console" />
+			<appender-ref ref="allLogFile" />
+			<appender-ref ref="errorLogFile" />
+		</root>
+	</springProfile>
+
+</configuration>
