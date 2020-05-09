@@ -1,4 +1,4 @@
-package com.bitfty.demo.utils;
+package com.demo.dubbo.utils;
 
 
 import org.springframework.beans.BeansException;

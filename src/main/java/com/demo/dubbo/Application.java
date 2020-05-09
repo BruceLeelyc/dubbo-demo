@@ -1,4 +1,4 @@
-package com.bitfty.demo;
+package com.demo.dubbo;
 
 import com.bitfty.eventBus.EventBusDispatcher;
 import com.bitfty.eventBus.listener.EventBusListener;

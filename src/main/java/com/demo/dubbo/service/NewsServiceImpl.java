@@ -1,9 +1,9 @@
-package com.bitfty.demo.service;
+package com.demo.dubbo.service;
 
-import com.bitfty.demo.dao.NewsDao;
+import com.demo.dubbo.dao.NewsDao;
 import com.bitfty.mall.dto.BannerDto;
 import com.bitfty.mall.dto.NewsDto;
-import com.bitfty.demo.entity.News;
+import com.demo.dubbo.entity.News;
 import com.bitfty.mall.service.NewsService;
 import com.bitfty.util.BeanMapper;
 import com.bitfty.util.Page;

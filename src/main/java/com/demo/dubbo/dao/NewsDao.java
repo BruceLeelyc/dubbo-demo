@@ -1,6 +1,6 @@
-package com.bitfty.demo.dao;
+package com.demo.dubbo.dao;
 
-import com.bitfty.demo.entity.News;
+import com.demo.dubbo.entity.News;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

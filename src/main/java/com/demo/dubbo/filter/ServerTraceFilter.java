@@ -1,4 +1,4 @@
-package com.bitfty.demo.filter;
+package com.demo.dubbo.filter;
 
 import com.google.common.base.Strings;
 import org.apache.dubbo.common.constants.CommonConstants;
@@ -9,13 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 import java.util.UUID;
-
-/**
- * @ClassName: ServerTraceFilter
- * @Description:
- * @Author: lixl
- * @Date: 2020/5/6 19:56
- */
 
 @Activate(group = CommonConstants.PROVIDER)
 public class ServerTraceFilter implements Filter {

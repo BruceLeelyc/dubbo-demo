@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bitfty.mall.dao.NewsDao">
-    <resultMap id="resultMap" type="com.bitfty.mall.entity.News">
+<mapper namespace="com.demo.dubbo.dao.NewsDao">
+    <resultMap id="resultMap" type="com.demo.dubbo.entity.News">
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
         <result column="author" property="author" jdbcType="VARCHAR"/>
@@ -73,7 +73,7 @@
     </select>
 
 
-    <insert id="save" parameterType="com.bitfty.mall.entity.News" keyProperty="id" keyColumn="id"
+    <insert id="save" parameterType="com.demo.dubbo.entity.News" keyProperty="id" keyColumn="id"
             useGeneratedKeys="true">
         insert into tbl_news
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -102,7 +102,7 @@
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.bitfty.mall.entity.News">
+    <update id="update" parameterType="com.demo.dubbo.entity.News">
         update tbl_news
         <set>
             <if test="title != null and title !=''">

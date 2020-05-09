@@ -1,4 +1,4 @@
-package com.bitfty.demo.entity;
+package com.demo.dubbo.entity;
 
 import lombok.Data;
 
